@@ -2,11 +2,14 @@ package resolvers
 
 import (
 	"github.com/jessequinn/go-gql-server/internal/gql"
+	"github.com/jessequinn/go-gql-server/internal/orm"
 )
 
-// Resolver is a modifable struct that can be used to pass on properties used
+// Resolver is a modifiable struct that can be used to pass on properties used
 // in the resolvers, such as DB access
-type Resolver struct{}
+type Resolver struct {
+	ORM *orm.ORM
+}
 
 // Mutation exposes mutation methods
 func (r *Resolver) Mutation() gql.MutationResolver {
