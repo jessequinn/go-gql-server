@@ -30,7 +30,8 @@ func init() {
 	autoMigrate = utils.MustGetBool("GORM_AUTOMIGRATE")
 }
 
-// Factory creates a db connection with the selected dialect and connection string
+// Factory creates a db connection with the selected dialect and connection
+// string
 func Factory() (*ORM, error) {
 	db, err := gorm.Open(dialect, dsn)
 	if err != nil {

@@ -4,13 +4,11 @@ import (
 	"time"
 
 	"github.com/gofrs/uuid"
-	"github.com/jinzhu/gorm"
 )
 
 // BaseModel defines the common columns that all db structs should hold, usually
 // db structs based on this have no soft delete
 type BaseModel struct {
-	// ID should use uuid_generate_v4() for the pk's
 	ID        uuid.UUID  `gorm:"primary_key;type:uuid;default:uuid_generate_v4()"`
 	CreatedAt time.Time  `gorm:"index;not null;default:CURRENT_TIMESTAMP"` // (My|Postgre)SQL
 	UpdatedAt *time.Time `gorm:"index"`

@@ -21,7 +21,7 @@ func init() {
 	isPgEnabled = utils.MustGetBool("GQL_SERVER_GRAPHQL_PLAYGROUND_ENABLED")
 }
 
-// Run api server
+// Run spins up the server
 func Run(orm *orm.ORM) {
 	log.Info("GORM_CONNECTION_DSN: ", utils.MustGet("GORM_CONNECTION_DSN"))
 
@@ -38,7 +38,6 @@ func Run(orm *orm.ORM) {
 		r.GET(gqlPgPath, handlers.PlaygroundHandler(gqlPath))
 		log.Info("GraphQL Playground @ " + endpoint + gqlPgPath)
 	}
-	// Pass in the ORM instance to the GraphqlHandler
 	r.POST(gqlPath, handlers.GraphqlHandler(orm))
 	log.Info("GraphQL @ " + endpoint + gqlPath)
 
