@@ -15,7 +15,7 @@ func init() {
 }
 
 // Run api server
-func main() {
+func Run() {
 	r := gin.Default()
 	// Setup routes
 	r.GET("/ping", handlers.Ping())
