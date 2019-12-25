@@ -21,7 +21,7 @@ func GraphqlHandler() gin.HandlerFunc {
 	}
 }
 
-// PlaygroundHandler Defines the Playground handler to expose our playground
+// PlaygroundHandler defines a handler to expose the Playground
 func PlaygroundHandler(path string) gin.HandlerFunc {
 	h := handler.Playground("Go GraphQL Server", path)
 	return func(c *gin.Context) {
