@@ -1,7 +1,7 @@
 package main
 
 import (
-	"strings"
+	//"strings"
 
 	"github.com/jessequinn/go-gql-server/internal/logger"
 
@@ -39,13 +39,13 @@ func main() {
 				ClientKey: utils.MustGet("PROVIDER_GOOGLE_KEY"),
 				Secret:    utils.MustGet("PROVIDER_GOOGLE_SECRET"),
 			},
-			utils.AuthProvider{
-				Provider:  "auth0",
-				ClientKey: utils.MustGet("PROVIDER_AUTH0_KEY"),
-				Secret:    utils.MustGet("PROVIDER_AUTH0_SECRET"),
-				Domain:    utils.MustGet("PROVIDER_AUTH0_DOMAIN"),
-				Scopes:    strings.Split(utils.MustGet("PROVIDER_AUTH0_SCOPES"), ","),
-			},
+			//utils.AuthProvider{
+			//	Provider:  "auth0",
+			//	ClientKey: utils.MustGet("PROVIDER_AUTH0_KEY"),
+			//	Secret:    utils.MustGet("PROVIDER_AUTH0_SECRET"),
+			//	Domain:    utils.MustGet("PROVIDER_AUTH0_DOMAIN"),
+			//	Scopes:    strings.Split(utils.MustGet("PROVIDER_AUTH0_SCOPES"), ","),
+			//},
 		},
 	}
 	orm, err := orm.Factory(serverconf)

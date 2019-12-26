@@ -24,5 +24,7 @@ services:
           context: ./
           dockerfile: ./docker/app/dev.Dockerfile
         restart: unless-stopped
+        depends_on:
+          - db
         ports:
         - "7777:7777"
