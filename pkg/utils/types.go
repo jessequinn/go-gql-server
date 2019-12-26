@@ -52,7 +52,8 @@ func (s *ServerConfig) ListenEndpoint() string {
 	if s.Port == "80" {
 		return s.Host
 	}
-	return s.Host + ":" + s.Port
+	//return s.Host + ":" + s.Port
+	return ":" + s.Port
 }
 
 // VersionedEndpoint builds the endpoint string (host + port + version)
