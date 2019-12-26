@@ -34,7 +34,7 @@ type UserProfile struct {
 	BaseModelSeq
 	Email          string    `gorm:"unique_index:idx_email_provider_external_user_id"`
 	User           User      `gorm:"association_autoupdate:false;association_autocreate:false"`
-	UserID         uuid.UUID `gorm:"not null;index"`
+	UserID         uuid.UUID `gorm:"not null;index;type:varchar(36)"`
 	Provider       string    `gorm:"not null;index;unique_index:idx_email_provider_external_user_id;default:'DB'"` // DB means database or no ExternalUserID
 	ExternalUserID string    `gorm:"not null;index;unique_index:idx_email_provider_external_user_id"`              // User ID
 	Name           string
@@ -50,7 +50,7 @@ type UserProfile struct {
 type UserAPIKey struct {
 	BaseModelSeq
 	User        User      `gorm:"association_autoupdate:false;association_autocreate:false"`
-	UserID      uuid.UUID `gorm:"not null;index"`
+	UserID      uuid.UUID `gorm:"not null;index;type:varchar(36)"`
 	APIKey      string    `gorm:"size:128;unique_index"`
 	Name        string
 	Permissions []Permission `gorm:"many2many:user_permissions;association_autoupdate:false;association_autocreate:false"`
@@ -58,13 +58,13 @@ type UserAPIKey struct {
 
 // UserRole relation between an user and its roles
 type UserRole struct {
-	UserID uuid.UUID `gorm:"index"`
+	UserID uuid.UUID `gorm:"index;type:varchar(36)"`
 	RoleID int       `gorm:"index"`
 }
 
 // UserPermission relation between an user and its permissions
 type UserPermission struct {
-	UserID       uuid.UUID `gorm:"index"`
+	UserID       uuid.UUID `gorm:"index;type:varchar(36)"`
 	PermissionID int       `gorm:"index"`
 }
 
