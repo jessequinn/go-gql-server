@@ -69,7 +69,6 @@ type UserPermission struct {
 }
 
 // ## Hooks
-
 // BeforeSave hook for User
 func (u *User) BeforeSave(scope *gorm.Scope) error {
 	if u.Password != "" {
@@ -81,7 +80,6 @@ func (u *User) BeforeSave(scope *gorm.Scope) error {
 }
 
 // AfterSave hook (assigning roles, fill all permissions for example)
-
 // BeforeSave hook for UserAPIKey
 func (k *UserAPIKey) BeforeSave(scope *gorm.Scope) error {
 	db := scope.NewDB()
@@ -101,8 +99,7 @@ func (k *UserAPIKey) BeforeSave(scope *gorm.Scope) error {
 }
 
 // ## Helper functions
-
-// HasRole verifies if user posseses a role
+// HasRole verifies if user possesses a role
 func (u *User) HasRole(roleID int) (bool, error) {
 	for _, r := range u.Roles {
 		if r.ID == roleID {
