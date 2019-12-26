@@ -12,6 +12,7 @@ require (
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-siris/siris v7.4.0+incompatible // indirect
 	github.com/gofrs/uuid v3.2.0+incompatible
+	github.com/google/uuid v1.1.1
 	github.com/gorilla/websocket v1.4.1 // indirect
 	github.com/hashicorp/golang-lru v0.5.3 // indirect
 	github.com/jinzhu/gorm v1.9.11
@@ -26,7 +27,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/oxequa/interact v0.0.0-20171114182912-f8fb5795b5d7 // indirect
 	github.com/oxequa/realize v2.0.2+incompatible // indirect
-	github.com/satori/go.uuid v1.2.0 // indirect
+	github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b
 	github.com/sirupsen/logrus v1.2.0
 	github.com/tockins/realize v2.0.2+incompatible // indirect
 	github.com/urfave/cli v1.22.2 // indirect
