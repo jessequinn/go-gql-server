@@ -7,13 +7,10 @@ ENV GO111MODULE=on \
     GOOS=linux \
     GOARCH=amd64
 
-COPY go.mod .
-COPY go.sum .
-
-RUN go mod download
-
 #COPY .dev.env .env
 COPY . .
+
+RUN go mod download
 
 # it will take the flags from the environment
 RUN go build -o build/gql-server cmd/gql-server/main.go
