@@ -7,5 +7,5 @@ printf "\nStart running: $app\n"
 export $(grep -v '^#' .env | xargs)
 time /$GOPATH/bin/realize start run
 # This should unset all the ENV vars, just in case.
-unset $(grep -v '^#' .env | sed -E 's/(.*)=.*/\1/' | xargs)
+# unset $(grep -v '^#' .env | sed -E 's/(.*)=.*/\1/''' | xargs)
 printf "\nStopped running: $app\n\n"

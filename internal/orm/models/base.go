@@ -4,15 +4,15 @@ import (
 	"github.com/jinzhu/gorm"
 	"time"
 
-	"github.com/google/uuid"
+	"github.com/gofrs/uuid"
 )
 
 // BaseModel defines the common columns that all db structs should hold, usually
 // db structs based on this have no soft delete
 type BaseModel struct {
 	ID        uuid.UUID  `gorm:"primary_key;type:varchar(36)"`
-	CreatedAt time.Time  `gorm:"index;not null;default:CURRENT_TIMESTAMP"` // (My|Postgre)SQL
-	UpdatedAt *time.Time `gorm:"index"`
+	CreatedAt time.Time  `gorm:"index;type:datetime;not null;default:CURRENT_TIMESTAMP"` // (My|Postgre)SQL
+	UpdatedAt *time.Time `gorm:"index;type:datetime"`
 }
 
 // BaseModelSoftDelete defines the common columns that all db structs should
@@ -25,7 +25,7 @@ type BaseModelSoftDelete struct {
 
 // BeforeCreate will set a UUID rather than numeric ID.
 func (base *BaseModel) BeforeCreate(scope *gorm.Scope) error {
-	uuid, err := uuid.NewUUID()
+	uuid, err := uuid.NewV4()
 	if err != nil {
 		return err
 	}

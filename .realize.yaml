@@ -20,14 +20,16 @@ schema:
         path: cmd/gql-server
         commands:
             install:
-                status: false
+                status: true
+                method: go build -o ../../build/gql-server
             run:
                 status: true
+                method: build/gql-server
         watcher:
             extensions:
                 - go
             paths:
-                - ../../
+                - /
             ignore:
                 paths:
                     - .git
