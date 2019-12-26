@@ -4,8 +4,13 @@ package orm
 
 import (
 	"errors"
-	log "github.com/jessequinn/go-gql-server/internal/logger"
-	"go-gql-server/internal/logger"
+
+	"github.com/jessequinn/go-gql-server/internal/gql/resolvers/transformations"
+
+	"github.com/markbates/goth"
+
+	"github.com/jessequinn/go-gql-server/internal/logger"
+	"github.com/jessequinn/go-gql-server/internal/orm/models"
 
 	"github.com/jessequinn/go-gql-server/internal/orm/migration"
 
@@ -25,31 +30,28 @@ type ORM struct {
 }
 
 func init() {
-	dialect = utils.MustGet("GORM_DIALECT")
-	dsn = utils.MustGet("GORM_CONNECTION_DSN")
-	seedDB = utils.MustGetBool("GORM_SEED_DB")
-	logMode = utils.MustGetBool("GORM_LOGMODE")
-	autoMigrate = utils.MustGetBool("GORM_AUTOMIGRATE")
+
 }
 
 // Factory creates a db connection with the selected dialect and connection
 // string
-func Factory() (*ORM, error) {
-	db, err := gorm.Open(dialect, dsn)
+func Factory(cfg *utils.ServerConfig) (*ORM, error) {
+	db, err := gorm.Open(cfg.Database.Dialect, cfg.Database.DSN)
 	if err != nil {
-		log.Panic("[ORM] err: ", err)
+		logger.Panic("[ORM] err: ", err)
 	}
-	orm := &ORM{
-		DB: db,
-	}
-	// Log every SQL command on dev, @prod: this should be disabled?
-	db.LogMode(logMode)
+	orm := &ORM{DB: db}
+	// Log every SQL command on dev, @prod: this should be disabled? Maybe.
+	db.LogMode(cfg.Database.LogMode)
 	// Automigrate tables
-	if autoMigrate {
+	if cfg.Database.AutoMigrate {
 		err = migration.ServiceAutoMigration(orm.DB)
+		if err != nil {
+			logger.Error("[ORM.autoMigrate] err: ", err)
+		}
 	}
-	log.Info("[ORM] Database connection initialized.")
-	return orm, err
+	logger.Info("[ORM] Database connection initialized.")
+	return orm, nil
 }
 
 //FindUserByAPIKey finds the user that is related to the API key
@@ -72,7 +74,8 @@ func (o *ORM) FindUserByJWT(email string, provider string, userID string) (*mode
 	if provider == "" || userID == "" {
 		return nil, errors.New("provider or userId empty")
 	}
-	if err := db.Preload("User").Where("email  = ? AND provider = ? AND external_user_id = ?", email, provider, userID).First(up).Error; err != nil {
+	if err := db.Preload("User").Where("email  = ? AND provider = ? AND external_user_id = ?", email, provider, userID).
+		First(up).Error; err != nil {
 		return nil, err
 	}
 	return &up.User, nil
@@ -105,6 +108,5 @@ func (o *ORM) UpsertUserProfile(input *goth.User) (*models.User, error) {
 	if tx := db.Model(up).Save(up); tx.Error != nil {
 		return nil, tx.Error
 	}
-	logger.Info(u.ID)
 	return u, nil
 }

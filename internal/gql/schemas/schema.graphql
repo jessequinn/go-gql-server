@@ -3,13 +3,31 @@ scalar Time
 type User {
     id: ID!
     email: String!
-    userId: String
+    avatarURL: String
     name: String
     firstName: String
     lastName: String
     nickName: String
     description: String
     location: String
+    APIkey: String
+    profiles: [UserProfile]
+    createdAt: Time
+    updatedAt: Time
+}
+
+type UserProfile {
+    id: ID!
+    email: String!
+    avatarURL: String
+    name: String
+    firstName: String
+    lastName: String
+    nickName: String
+    description: String
+    location: String
+    APIkey: String
+    profiles: [UserProfile]
     createdAt: Time!
     updatedAt: Time
 }
@@ -17,7 +35,8 @@ type User {
 # Input Types
 input UserInput {
     email: String
-    userId: String
+    password: String
+    avatarURL: String
     displayName: String
     name: String
     firstName: String
@@ -29,8 +48,8 @@ input UserInput {
 
 # List Types
 type Users {
-    count: Int # You want to return count for a grid for example
-    list: [User!]! # that is why we need to specify the users object this way
+    count: Int
+    list: [User!]!
 }
 
 # Define mutations here

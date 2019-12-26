@@ -16,7 +16,7 @@ type ServerConfig struct {
 	AuthProviders []AuthProvider
 }
 
-// JWTConfig defines the options for JWT tokens
+//JWTConfig defines the options for JWT tokens
 type JWTConfig struct {
 	Secret    string
 	Algorithm string
