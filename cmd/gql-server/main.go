@@ -1,13 +1,13 @@
 package main
 
 import (
-	log "github.com/jessequinn/go-gql-server/internal/logger"
-	"github.com/jessequinn/go-gql-server/pkg/utils"
-	"go-gql-server/internal/logger"
 	"strings"
+
+	"github.com/jessequinn/go-gql-server/internal/logger"
 
 	"github.com/jessequinn/go-gql-server/internal/orm"
 	"github.com/jessequinn/go-gql-server/pkg/server"
+	"github.com/jessequinn/go-gql-server/pkg/utils"
 )
 
 func main() {
