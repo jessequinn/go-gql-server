@@ -7,7 +7,6 @@ ENV GO111MODULE=on \
     GOOS=linux \
     GOARCH=amd64
 
-#COPY .dev.env .env
 COPY . .
 
 RUN go mod download
@@ -23,6 +22,8 @@ RUN apk --update add ca-certificates
 FROM scratch as app
 COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=base app /
+
+#ENTRYPOINT ["sh", "/scripts/dev-run.sh"]
 ENTRYPOINT ["/build/gql-server"]
 
 EXPOSE 7777
