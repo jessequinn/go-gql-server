@@ -13,6 +13,9 @@ import (
 )
 
 var (
+	// APIKeyHeader The API key header name
+	APIKeyHeader = utils.MustGet("AUTH_API_KEY_HEADER")
+
 	// TokenHeadName is a string in the header. Default value is "Bearer"
 	TokenHeadName = "Bearer"
 
@@ -23,7 +26,7 @@ var (
 	// - "header:<name>"
 	// - "query:<name>"
 	// - "cookie:<name>"
-	APIKeyLookup = "query:api_key,cookie:api_key,header:X-API-KEY"
+	APIKeyLookup = "query:api_key,cookie:api_key,header:" + APIKeyHeader
 
 	// TokenLookup is a string in the form of "<source>:<name>" that is used
 	// to extract token from the request.

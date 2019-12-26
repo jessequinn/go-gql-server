@@ -27,7 +27,8 @@ func Middleware(path string, cfg *utils.ServerConfig, orm *orm.ORM) gin.HandlerF
 			if err != nil {
 				authError(c, ErrForbidden)
 			}
-			logger.Info("User: ", user)
+			c.Request = addToContext(c, utils.ProjectContextKeys.UserCtxKey, user)
+			logger.Info("User: ", user.ID)
 			c.Next()
 		} else {
 			if err != ErrEmptyAPIKeyHeader {
@@ -37,11 +38,21 @@ func Middleware(path string, cfg *utils.ServerConfig, orm *orm.ORM) gin.HandlerF
 				if err != nil {
 					authError(c, err)
 				} else {
+					// goth.ContextForClient(c.)
 					if claims, ok := t.Claims.(jwt.MapClaims); ok {
 						if claims["exp"] != nil {
 							issuer := claims["iss"].(string)
 							userid := claims["jti"].(string)
 							email := claims["email"].(string)
+							if claims["aud"] != nil {
+								audiences := claims["aud"].(interface{})
+								logger.Warnf("\n\naudiences: %s\n\n", audiences)
+							}
+							if claims["alg"] != nil {
+								algo := claims["alg"].(string)
+								logger.Warnf("\n\nalgo: %s\n\n", algo)
+							}
+							// TODO: Verify token with each provider's JWKs
 							if user, err := orm.FindUserByJWT(email, issuer, userid); err != nil {
 								authError(c, ErrForbidden)
 							} else {

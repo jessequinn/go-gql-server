@@ -1,19 +1,28 @@
 version: '3.7'
 
 services:
-  db:
-    container_name: gogqlserver_mysql
-    image: mysql:8.0.18
-    restart: unless-stopped
-    command: ["--default-authentication-plugin=mysql_native_password"]
-    healthcheck:
-      test: "exit 0"
-    environment:
-      MYSQL_ROOT_PASSWORD: uKacNYFqFqbjU0aD8Vw0rvEF1V27B6wM
-      MYSQL_DATABASE: gogqlserver
-      MYSQL_USER: dummy
-      MYSQL_PASSWORD: uKacNYFqFqbjU0aD8Vw0rvEF1V27B6wM
-    volumes:
-      - ./docker/mysql:/etc/mysql/conf.d
-    ports:
-      - "3306:3306"
+    db:
+        container_name: gogqlserver_mysql
+        image: mysql:8.0.18
+        restart: unless-stopped
+        command: ["--default-authentication-plugin=mysql_native_password"]
+        healthcheck:
+            test: "exit 0"
+        environment:
+            MYSQL_ROOT_PASSWORD: uKacNYFqFqbjU0aD8Vw0rvEF1V27B6wM
+            MYSQL_DATABASE: gogqlserver
+            MYSQL_USER: dummy
+            MYSQL_PASSWORD: uKacNYFqFqbjU0aD8Vw0rvEF1V27B6wM
+        volumes:
+            - ./docker/mysql:/etc/mysql/conf.d
+        ports:
+            - "3306:3306"
+
+    app:
+        container_name: gogqlserver_app
+        build:
+          context: ./
+          dockerfile: ./docker/app/dev.Dockerfile
+        restart: unless-stopped
+        ports:
+        - "7777:7777"
