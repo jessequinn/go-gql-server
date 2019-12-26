@@ -2,8 +2,6 @@ package handlers
 
 import (
 	"github.com/99designs/gqlgen/handler"
-	//"github.com/99designs/gqlgen/graphql/handler"
-	//"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/gin-gonic/gin"
 	"github.com/jessequinn/go-gql-server/internal/gql"
 	"github.com/jessequinn/go-gql-server/internal/gql/resolvers"
@@ -28,7 +26,6 @@ func GraphqlHandler(orm *orm.ORM) gin.HandlerFunc {
 
 // PlaygroundHandler defines a handler to expose the Playground
 func PlaygroundHandler(path string) gin.HandlerFunc {
-	//h := playground.Handler("Go GraphQL Server", path)
 	h := handler.Playground("Go GraphQL Server", path)
 	return func(c *gin.Context) {
 		h.ServeHTTP(c.Writer, c.Request)
