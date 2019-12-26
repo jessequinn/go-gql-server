@@ -24,7 +24,7 @@ func ServiceAutoMigration(db *gorm.DB) error {
 	m.InitSchema(func(db *gorm.DB) error {
 		log.Info("[Migration.InitSchema] Initializing database schema")
 		switch db.Dialect().GetName() {
-		case "mysql":
+		case "postgres":
 			// Let's create the UUID extension, the user has to have superuser
 			// permission for now
 			db.Exec("create extension \"uuid-ossp\";")
