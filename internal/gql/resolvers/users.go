@@ -31,7 +31,6 @@ func (r *queryResolver) Users(ctx context.Context, id *string) (*models.Users, e
 }
 
 // ## Helper functions
-
 func userCreateUpdate(r *mutationResolver, input models.UserInput, update bool, ids ...string) (*models.User, error) {
 	dbo, err := tf.GQLInputUserToDBUser(&input, update, ids...)
 	if err != nil {
